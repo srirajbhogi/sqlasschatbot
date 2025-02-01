@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQLite Chat Assistant</title>
+  <style>
+    /* General reset for margin and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body and background styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f5;
+      color: #333;
+      line-height: 1.6;
+      padding: 0 20px;
+    }
+
+    /* Container to center and structure content */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Header Styling */
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    header .description {
+      font-size: 1.2rem;
+      color: #777;
+    }
+
+    /* Query Form Styling */
+    .query-section {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .input-group input[type="text"] {
+      padding: 12px;
+      font-size: 1rem;
+      width: 300px;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input[type="text"]:focus {
+      border-color: #4CAF50;
+    }
+
+    .input-group button {
+      padding: 12px 20px;
+      font-size: 1rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .input-group button:hover {
+      background-color: #45a049;
+    }
+
+    /* Results Section Styling */
+    .result-section {
+      margin-top: 30px;
+    }
+
+    .result-section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .result-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .result-card {
+      background-color: #fff;
+      padding: 20px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      width: 250px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .result-card p {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    /* Visualization Section Styling */
+    .visualization-section {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .visualize-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 12px 30px;
+      background-color: #2196F3;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s;
+    }
+
+    .visualize-link:hover {
+      background-color: #0b7dda;
+    }
+
+    .visualization-image img {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .input-group input[type="text"] {
+        width: 200px;
+      }
+
+      .result-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>SQLite Chat Assistant</h1>
+      <p class="description">Ask your queries related to the employee database.</p>
+    </header>
+
+    <div class="query-section">
+      <form action="/query" method="POST">
+        <div class="input-group">
+          <input type="text" name="query" placeholder="Enter your query..." required>
+          <button type="submit">Ask</button>
+        </div>
+      </form>
+    </div>
+
+    {% if result %}
+      <div class="result-section">
+        <h2>Results:</h2>
+        <div class="result-cards">
+          {% for row in result %}
+            <div class="result-card">
+              <p>{{ row }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="visualization-section">
+      <h2>Data Visualization</h2>
+      <a class="visualize-link" href="/visualize">View Salary Expenses by Department</a>
+
+      {% if plot_url %}
+        <div class="visualization-image">
+          <img src="data:image/png;base64,{{ plot_url }}" alt="Visualization">
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
